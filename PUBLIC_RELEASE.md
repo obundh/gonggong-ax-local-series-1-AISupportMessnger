@@ -11,7 +11,7 @@
 - Git 추적 대상의 대용량 모델·런타임 빌드 캐시와 이미지 생성 가중치
 - `node_modules`, ComfyUI, Python vendor
 - 실존 인물 프로필 사진과 출처 확인이 끝나지 않은 문서 바이너리
-- 로컬 LLM 설정, DGX 모델 매핑, API 인증값
+- 로컬 LLM 설정과 API 인증값
 
 ## 유지한 범위
 

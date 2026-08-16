@@ -25,7 +25,6 @@ __pycache__/
 .env.*
 !.env.example
 app/config/llm.json
-tools/dgx-spark/spark.env
 *.pem
 *.key
 *.p12

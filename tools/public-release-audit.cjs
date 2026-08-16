@@ -141,7 +141,7 @@ function candidateFiles() {
 }
 
 const candidates = candidateFiles();
-const privateConfigs = new Set(["app/config/llm.json", "tools/dgx-spark/spark.env"]);
+const privateConfigs = new Set(["app/config/llm.json"]);
 
 for (const fullPath of candidates.files) {
     const rel = relative(fullPath);

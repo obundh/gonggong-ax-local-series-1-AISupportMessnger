@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Map Heyu Gemma Model
-Terminal=true
-Exec=sh -c 'cd "$(dirname "$1")" && bash HEYU_SPARK_MAP_MODEL.sh' launcher %k

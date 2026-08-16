@@ -23,7 +23,6 @@ Electron, Lucide, Chart.js, pdf-lib, pdfjs-dist, ExcelJS, Sharp, Model Context P
 - Silero VAD 6.2.0 기반 `ggml-silero-v6.2.0.bin` (MIT)
 - ComfyUI 런타임과 Python 가상환경
 - 이미지 생성 체크포인트
-- DGX Spark 오프라인 Node/Electron/Linux ARM64 번들
 
 이 항목을 별도 배포하려면 각 파일의 원본 URL, 정확한 버전, 체크섬, 라이선스, 수정 여부와 재배포 조건을 별도 릴리스 명세에 기록해야 합니다. 특히 이미지 체크포인트는 모델별 재배포·상업 이용 조건을 확인하기 전에는 번들링하지 않습니다.
 

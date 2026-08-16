@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Install Heyu DGX Spark
-Terminal=true
-Exec=sh -c 'cd "$(dirname "$1")" && bash HEYU_SPARK_ONE_CLICK_INSTALL.sh' launcher %k

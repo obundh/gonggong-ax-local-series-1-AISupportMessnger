@@ -21,7 +21,6 @@
     "start": "set ELECTRON_RUN_AS_NODE=&& node tools/windows-dev-launcher.cjs",
     "start:safe": "set HEYU_EMP_DATA_MODE=safe&& set ELECTRON_RUN_AS_NODE=&& node tools/windows-dev-launcher.cjs",
     "start:linux": "ELECTRON_RUN_AS_NODE= electron .",
-    "start:dgx": "bash tools/dgx-spark/start-heyu-spark.sh",
     "prepare:stt-bundle": "node tools/prepare-stt-bundle.cjs",
     "prepare:series4-bundle": "node tools/prepare-series4-bundle.cjs",
     "build:web-demo-assets": "node web-demo/build-thumbnails.cjs",
