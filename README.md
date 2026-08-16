@@ -2,14 +2,14 @@
 
 > **MVP 공개본 · 설치 전에 먼저 체험하세요**
 >
-> [웹 데모 열기](web-demo/index.html) · [Windows 원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI-Support-Messenger-Setup-0.1.0.exe) · [소개 동영상](web-demo/assets/intro-video.mp4) · [6장 설치 만화](docs/comic/)
+> [웹 데모 열기](web-demo/index.html) · [Windows 원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI.Setup.0.1.0.exe) · [소개 동영상](web-demo/assets/intro-video.mp4) · [6장 설치 만화](docs/comic/)
 
 AI지원담당은 공공기관 실무자를 위한 **로컬 우선 업무 메신저 MVP**입니다. 먼저 [웹 데모](web-demo/index.html)에서 친구목록 → 더블클릭 → 채팅 → 담당별 기능 패널의 흐름을 확인한 다음, Windows 설치파일을 내려받아 실제 로컬 환경에서 검증하세요. 웹 데모는 고정 예시만 재생하며 LLM·MCP·파일·마이크·자동화를 실행하지 않습니다.
 
 ## 5분 설치 안내
 
 1. 위의 **Windows 원클릭 다운로드**를 누릅니다. 설치파일은 GitHub Release에서 받습니다.
-2. `AI-Support-Messenger-Setup-0.1.0.exe`를 실행하고 설치 위치와 바탕화면 바로가기를 선택합니다. Windows SmartScreen이 표시되면 게시자·파일 출처를 확인한 뒤 사용자의 조직 정책에 따라 허용하세요.
+2. `AI.Setup.0.1.0.exe`를 실행하고 설치 위치와 바탕화면 바로가기를 선택합니다. Windows SmartScreen이 표시되면 게시자·파일 출처를 확인한 뒤 사용자의 조직 정책에 따라 허용하세요.
 3. 앱을 열고 첫 화면에서 `모델` 버튼을 누릅니다. 답변용 로컬 Ollama 모델이 이 PC에 설치되어 있어야 하며 **Gemma4 e4b 이상**을 권장합니다. e2b 이하 또는 식별되지 않은 모델이면 무거운 기능의 응답이 느리거나 품질이 낮을 수 있다는 주의가 표시됩니다.
 4. `노크하기`를 누른 뒤 친구목록에서 담당자를 더블클릭합니다. 질문을 보내고, 법률·행정·문서 결과는 반드시 원문과 담당자 확인 절차를 거치세요.
 

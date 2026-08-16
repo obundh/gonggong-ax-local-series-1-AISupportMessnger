@@ -1,6 +1,6 @@
 # AI지원담당 설치 전 웹 데모
 
-처음 방문했다면 이 페이지 상단의 `Windows 다운로드`보다 먼저 데모를 눌러 보세요. 실제 친구목록과 같은 모양에서 담당자를 열고 기능 흐름을 확인할 수 있습니다. 설치파일은 [원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI-Support-Messenger-Setup-0.1.0.exe), 소개 영상은 [`assets/intro-video.mp4`](assets/intro-video.mp4), 설치 순서는 [고양이 6장 만화](../docs/comic/)에서 확인합니다.
+처음 방문했다면 이 페이지 상단의 `Windows 다운로드`보다 먼저 데모를 눌러 보세요. 실제 친구목록과 같은 모양에서 담당자를 열고 기능 흐름을 확인할 수 있습니다. 설치파일은 [원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI.Setup.0.1.0.exe), 소개 영상은 [`assets/intro-video.mp4`](assets/intro-video.mp4), 설치 순서는 [고양이 6장 만화](../docs/comic/)에서 확인합니다.
 
 설치 전에 AI지원담당의 실제 사용 흐름을 체험하는 정적 웹 페이지입니다. 왼쪽에서 예시 질문을 고르면 오른쪽의 실제형 친구 목록에서 담당자가 표시되고, 친구를 더블클릭하거나 Enter 또는 `채팅 열기` 버튼을 누르면 채팅창이 열립니다.
 
