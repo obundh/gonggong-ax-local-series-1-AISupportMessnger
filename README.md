@@ -2,7 +2,7 @@
 
 > **MVP 공개본 · 설치 전에 먼저 체험하세요**
 >
-> [웹 데모 열기](web-demo/index.html) · [Windows 원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI.Setup.0.1.0.exe) · [소개 동영상](web-demo/assets/intro-video.mp4) · [6장 설치 만화](docs/comic/)
+> [웹 데모 열기](web-demo/index.html) · [Windows 원클릭 다운로드](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI.Setup.0.1.0.exe) · [GitLab 미러](https://gitlab.aigov.go.kr/tyui22/gonggong-ax-local-series-1-AISupportMessnger) · [소개 동영상](web-demo/assets/intro-video.mp4) · [6장 설치 만화](docs/comic/) · [만화 ZIP](https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI-Support-Messenger-Comic-6-Pages.zip)
 
 AI지원담당은 공공기관 실무자를 위한 **로컬 우선 업무 메신저 MVP**입니다. 먼저 [웹 데모](web-demo/index.html)에서 친구목록 → 더블클릭 → 채팅 → 담당별 기능 패널의 흐름을 확인한 다음, Windows 설치파일을 내려받아 실제 로컬 환경에서 검증하세요. 웹 데모는 고정 예시만 재생하며 LLM·MCP·파일·마이크·자동화를 실행하지 않습니다.
 
@@ -17,6 +17,8 @@ AI지원담당은 공공기관 실무자를 위한 **로컬 우선 업무 메신
 | ![첫 실행과 모델 선택을 설명하는 만화 5장](docs/comic/05-첫실행.png) | ![친구목록에서 질문하는 흐름을 설명하는 만화 6장](docs/comic/06-사용흐름.png) |
 
 [만화 원본 6장 폴더 열기](docs/comic/)
+
+GitLab에서도 [설치파일](https://gitlab.aigov.go.kr/tyui22/gonggong-ax-local-series-1-AISupportMessnger/-/releases/v0.1.0-mvp/downloads/AI.Setup.0.1.0.exe)과 [만화 6장 ZIP](https://gitlab.aigov.go.kr/tyui22/gonggong-ax-local-series-1-AISupportMessnger/-/releases/v0.1.0-mvp/downloads/AI-Support-Messenger-Comic-6-Pages.zip)을 같은 버전으로 받을 수 있습니다.
 
 ## 5분 설치 안내
 
