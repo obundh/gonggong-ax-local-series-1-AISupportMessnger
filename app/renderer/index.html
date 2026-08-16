@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI지원담당</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="boot-screen" id="bootScreen" aria-label="앱 시작">
+      <div class="window-controls boot-window-controls" aria-label="창 제어">
+        <button type="button" data-window-action="minimize" aria-label="최소화"><span></span></button>
+        <button type="button" data-window-action="maximize" aria-label="최대화"><span></span></button>
+        <button type="button" data-window-action="close" aria-label="닫기"><span></span></button>
+      </div>
+      <div class="boot-center">
+        <div class="boot-brand-mark">
+          <i data-lucide="door-open"></i>
+        </div>
+        <div class="boot-title">
+          <strong>AI지원담당</strong>
+          <span>로컬 담당 연결</span>
+        </div>
+        <button class="boot-power-button" type="button" id="bootPowerButton" aria-label="노크 하기">
+          <i data-lucide="door-open"></i>
+          <span>노크 하기</span>
+        </button>
+        <p id="bootStatusText">문을 두드려 주세요.</p>
+      </div>
+      <div class="boot-footnote">
+        <span class="boot-footnote-copy"><i></i>연결되면 AI지원담당으로 들어갑니다.</span>
+        <button class="boot-model-button is-offline" type="button" id="bootModelPickerButton" data-model-picker-open aria-haspopup="dialog" aria-expanded="false">
+          <i data-lucide="cpu"></i>
+          <span id="bootModelPickerLabel">모델 선택 · 새 모델 받기</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="app-frame" id="mainApp" hidden>
+      <aside class="sidebar">
+        <nav class="nav-list" aria-label="주 메뉴">
+          <button class="nav-item is-active" type="button" data-view="friends">
+            <i data-lucide="user-round"></i>
+            <span>친구</span>
+          </button>
+          <button class="nav-item" type="button" data-view="chats">
+            <i data-lucide="message-circle"></i>
+            <span>채팅</span>
+          </button>
+          <button class="nav-item" type="button" data-view="files">
+            <i data-lucide="briefcase"></i>
+            <span>자료</span>
+          </button>
+          <button class="nav-item" type="button" data-view="settings">
+            <i data-lucide="settings"></i>
+            <span>설정</span>
+          </button>
+        </nav>
+
+        <section class="profile-card" aria-label="내 프로필">
+          <div class="human-avatar">
+            <div class="hair"></div>
+            <div class="face"></div>
+            <div class="suit"></div>
+            <span class="presence-dot"></span>
+          </div>
+              <strong>사용자</strong>
+              <span>소속 미설정</span>
+          <button class="status-pill" type="button">
+            <span class="presence-small"></span>
+            온라인
+            <i data-lucide="chevron-down"></i>
+          </button>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <div class="window-controls" aria-label="창 제어">
+          <button type="button" data-window-action="minimize" aria-label="최소화"><span></span></button>
+          <button type="button" data-window-action="maximize" aria-label="최대화"><span></span></button>
+          <button type="button" data-window-action="close" aria-label="닫기"><span></span></button>
+        </div>
+        <section class="view-root" id="viewRoot" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <div class="modal-layer" id="modalLayer" hidden></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

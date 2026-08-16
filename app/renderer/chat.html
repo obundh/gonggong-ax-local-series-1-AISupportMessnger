@@ -1,0 +1,1253 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>채팅 - AI지원담당</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="chat-body">
+    <div class="app-frame chat-frame" id="chatApp">
+      <main class="chat-workspace">
+        <div class="chat-windowbar">
+          <div class="window-controls" aria-label="창 제어">
+            <button type="button" data-window-action="minimize" aria-label="최소화"><span></span></button>
+            <button type="button" data-window-action="maximize" aria-label="최대화"><span></span></button>
+            <button type="button" data-window-action="close" aria-label="닫기"><span></span></button>
+          </div>
+        </div>
+        <section class="chat-main">
+          <header class="chat-topbar" id="chatTopbar"></header>
+          <div class="message-stream" id="messageStream"></div>
+          <footer class="composer">
+            <div class="graph-controls" id="graphControls" hidden>
+              <label>
+                <span>X축</span>
+                <input id="graphXAxis" type="text" placeholder="예: 월, 부서, 연도" autocomplete="off" />
+              </label>
+              <label>
+                <span>Y축</span>
+                <input id="graphYAxis" type="text" placeholder="예: 매출, 건수, 처리율" autocomplete="off" />
+              </label>
+              <label class="graph-type-field">
+                <span>종류</span>
+                <select id="graphChartType">
+                  <option value="auto">자동</option>
+                  <option value="bar">막대</option>
+                  <option value="line">선</option>
+                </select>
+              </label>
+            </div>
+            <div class="presentation-controls" id="presentationControls" hidden>
+              <label>
+                <span>자료</span>
+                <select id="pptSourceType">
+                  <option value="auto">자동</option>
+                  <option value="회의록">회의록</option>
+                  <option value="보고서">보고서</option>
+                  <option value="메모">메모</option>
+                  <option value="기획안">기획안</option>
+                </select>
+              </label>
+              <label>
+                <span>장수</span>
+                <select id="pptSlideCount">
+                  <option value="auto">자동</option>
+                  <option value="5장">5장</option>
+                  <option value="8장">8장</option>
+                  <option value="10장">10장</option>
+                  <option value="12장">12장</option>
+                </select>
+              </label>
+              <label>
+                <span>청중</span>
+                <input id="pptAudience" type="text" placeholder="예: 과장님, 간부회의" autocomplete="off" />
+              </label>
+              <label>
+                <span>목적</span>
+                <input id="pptPurpose" type="text" placeholder="예: 현황보고, 의사결정" autocomplete="off" />
+              </label>
+              <label>
+                <span>톤</span>
+                <select id="pptTone">
+                  <option value="공공기관 보고용">공공기관 보고용</option>
+                  <option value="회의 브리핑">회의 브리핑</option>
+                  <option value="교육용">교육용</option>
+                  <option value="외부 발표">외부 발표</option>
+                </select>
+              </label>
+              <label>
+                <span>비율</span>
+                <select id="pptRatio">
+                  <option value="16:9">16:9</option>
+                  <option value="4:3">4:3</option>
+                </select>
+              </label>
+              <label>
+                <span>내용</span>
+                <select id="pptDetailLevel">
+                  <option value="balanced">균형</option>
+                  <option value="dense" selected>상세</option>
+                  <option value="brief">간단</option>
+                </select>
+              </label>
+              <label>
+                <span>글자</span>
+                <select id="pptFontScale">
+                  <option value="compact">작게</option>
+                  <option value="normal" selected>보통</option>
+                  <option value="large">크게</option>
+                </select>
+              </label>
+              <label>
+                <span>테마</span>
+                <select id="pptTheme">
+                  <option value="civic-blue" selected>공공 블루</option>
+                  <option value="forest">차분한 그린</option>
+                  <option value="mono">흑백 보고</option>
+                </select>
+              </label>
+            </div>
+            <div class="composer-attachments" id="composerAttachments" hidden></div>
+            <div class="composer-input" id="composerInput" contenteditable="true" role="textbox" aria-label="메시지 입력"></div>
+            <div class="composer-tools">
+              <button class="icon-button" type="button" id="attachButton" aria-label="파일 첨부">
+                <i data-lucide="paperclip"></i>
+              </button>
+              <button class="icon-button" type="button" aria-label="이모티콘">
+                <i data-lucide="smile"></i>
+              </button>
+              <button class="icon-button" type="button" aria-label="멘션">
+                <i data-lucide="at-sign"></i>
+              </button>
+              <button class="send-button" type="button" id="sendButton" aria-label="전송">
+                <i data-lucide="send-horizontal"></i>
+              </button>
+            </div>
+          </footer>
+        </section>
+        <aside class="routine-panel" id="routinePanel" hidden>
+          <header>
+            <div>
+              <strong>김루틴 설정</strong>
+              <span>직접 실행 연결됨</span>
+            </div>
+            <i data-lucide="mouse-pointer-click"></i>
+          </header>
+          <div class="routine-tabs" role="tablist" aria-label="김루틴 설정 방식">
+            <button class="routine-tab is-active" type="button" data-routine-tab="direct">직접 설정</button>
+            <button class="routine-tab" type="button" data-routine-tab="auto">자동 설정</button>
+          </div>
+          <section class="routine-pane is-active" id="routineDirectPane" data-routine-pane="direct">
+            <section class="routine-live-card">
+              <div>
+                <span>현재 마우스</span>
+                <strong id="routineLivePoint">x -, y -</strong>
+              </div>
+              <label class="routine-delay-field">
+                <span>지연초</span>
+                <input id="routineCaptureDelay" type="number" min="0.5" max="30" step="0.5" value="3" />
+              </label>
+              <button class="routine-mini-button" type="button" id="routineCaptureButton">
+                <i data-lucide="crosshair"></i>
+                <span id="routineCaptureLabel">지연 캡처</span>
+              </button>
+            </section>
+            <div class="routine-quick-actions" aria-label="기본 매크로 동작">
+              <button type="button" data-routine-action-preset="click"><i data-lucide="mouse-pointer-click"></i>클릭</button>
+              <button type="button" data-routine-action-preset="doubleClick"><i data-lucide="copy-plus"></i>더블클릭</button>
+              <button type="button" data-routine-action-preset="typeText"><i data-lucide="keyboard"></i>텍스트</button>
+              <button type="button" data-routine-action-preset="pressKey"><i data-lucide="corner-down-left"></i>엔터/키</button>
+              <button type="button" data-routine-action-preset="hotkey"><i data-lucide="command"></i>단축키</button>
+              <button type="button" data-routine-action-preset="wait"><i data-lucide="timer"></i>대기</button>
+            </div>
+            <div class="routine-tool-grid">
+            <div class="routine-field-row">
+              <label>
+                <span>동작</span>
+                <select id="routineActionType">
+                  <optgroup label="기본">
+                    <option value="click">클릭</option>
+                    <option value="doubleClick">더블클릭</option>
+                    <option value="rightClick">우클릭</option>
+                    <option value="typeText">좌표에 입력</option>
+                    <option value="pressKey">키 누르기</option>
+                    <option value="hotkey">단축키</option>
+                    <option value="wait">대기</option>
+                    <option value="checkpoint">확인 지점 · 실행 전 승인</option>
+                  </optgroup>
+                  <optgroup label="고급 마우스">
+                    <option value="moveTo">마우스 이동</option>
+                    <option value="middleClick">휠클릭</option>
+                    <option value="dragTo">드래그</option>
+                    <option value="dragRel">상대 드래그</option>
+                    <option value="mouseDown">누른 상태</option>
+                    <option value="mouseUp">놓기</option>
+                    <option value="scroll">세로 스크롤</option>
+                    <option value="horizontalScroll">가로 스크롤</option>
+                  </optgroup>
+                  <optgroup label="고급 키보드/입력">
+                    <option value="pasteText">클립보드 붙여넣기</option>
+                    <option value="setClipboard">클립보드 설정</option>
+                    <option value="keyDown">키 누른 상태</option>
+                    <option value="keyUp">키 놓기</option>
+                  </optgroup>
+                  <optgroup label="고급 대기/검출">
+                    <option value="waitImage" disabled>이미지 대기 · 설계 전용</option>
+                    <option value="clickImage" disabled>이미지 찾아 클릭 · 설계 전용</option>
+                    <option value="locateImage" disabled>이미지 위치 찾기 · 설계 전용</option>
+                    <option value="waitText" disabled>텍스트/OCR 대기 · 설계 전용</option>
+                    <option value="pixelCheck">픽셀 색 확인</option>
+                    <option value="colorWait" disabled>픽셀 색 대기 · 설계 전용</option>
+                    <option value="screenshot">스크린샷 저장</option>
+                  </optgroup>
+                  <optgroup label="고급 창/앱">
+                    <option value="focusWindow" disabled>창 활성화 · 설계 전용</option>
+                    <option value="openApp">프로그램 열기</option>
+                    <option value="openFile">파일 열기</option>
+                    <option value="runCommand" disabled>명령 실행 · 실행 차단됨</option>
+                    <option value="closeWindow" disabled>창 닫기 · 설계 전용</option>
+                  </optgroup>
+                  <optgroup label="승인 · 실행 시 여기서 일시정지">
+                    <option value="confirm">사용자 승인</option>
+                  </optgroup>
+                  <optgroup label="설계 전용 · 현재 실행 안 됨">
+                    <option value="loopStart" disabled>반복 시작 · 설계 전용</option>
+                    <option value="loopEnd" disabled>반복 끝 · 설계 전용</option>
+                    <option value="ifImage" disabled>이미지 조건 · 설계 전용</option>
+                    <option value="ifText" disabled>텍스트 조건 · 설계 전용</option>
+                    <option value="errorStop" disabled>오류 시 중지 · 설계 전용</option>
+                  </optgroup>
+                </select>
+              </label>
+              <label>
+                <span>반복</span>
+                <input id="routineStepRepeat" type="number" min="1" max="50" value="1" />
+              </label>
+            </div>
+            <div class="routine-field-row">
+              <label>
+                <span>X</span>
+                <input id="routineX" type="number" placeholder="0" />
+              </label>
+              <label>
+                <span>Y</span>
+                <input id="routineY" type="number" placeholder="0" />
+              </label>
+            </div>
+            <div class="routine-field-row">
+              <label>
+                <span>X2/DX</span>
+                <input id="routineX2" type="number" placeholder="드래그 끝/상대 X" />
+              </label>
+              <label>
+                <span>Y2/DY</span>
+                <input id="routineY2" type="number" placeholder="드래그 끝/상대 Y" />
+              </label>
+            </div>
+            <label>
+              <span>대기/타임아웃초</span>
+              <input id="routineWaitSeconds" type="number" min="0" max="600" step="0.1" value="1" />
+            </label>
+            <label>
+              <span>지속/속도초</span>
+              <input id="routineDurationSeconds" type="number" min="0" max="60" step="0.1" value="0.2" />
+            </label>
+            <label>
+              <span>값/키/이미지/메모</span>
+              <textarea id="routineStepValue" rows="3" placeholder="입력 텍스트, Ctrl+S, 이미지 파일명, 픽셀 색 #FFFFFF, 확인할 화면 상태 등"></textarea>
+            </label>
+            <details class="routine-advanced">
+              <summary>
+                <span>고급 설정</span>
+                <i data-lucide="chevron-down"></i>
+              </summary>
+              <div class="routine-advanced-body">
+                <label>
+                  <span>대상창</span>
+                  <input id="routineWindowTitle" type="text" placeholder="예: 엑셀, 업무시스템, 한글" autocomplete="off" />
+                </label>
+                <div class="routine-field-row">
+                  <label>
+                    <span>산출</span>
+                    <select id="routineOutput">
+                      <option value="자동화 설정표">자동화 설정표</option>
+                      <option value="사람이 따라할 절차">사람이 따라할 절차</option>
+                      <option value="PyAutoGUI 초안">PyAutoGUI 초안</option>
+                      <option value="AutoHotkey 초안">AutoHotkey 초안</option>
+                      <option value="Power Automate 흐름">Power Automate 흐름</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>권한</span>
+                    <select id="routineRisk">
+                      <option value="읽기/조회만">읽기/조회만</option>
+                      <option value="초안 작성까지">초안 작성까지</option>
+                      <option value="입력/수정 포함">입력/수정 포함</option>
+                      <option value="삭제/제출 없음">삭제/제출 없음</option>
+                    </select>
+                  </label>
+                </div>
+                <label>
+                  <span>반복조건</span>
+                  <input id="routineRepeat" type="text" placeholder="예: 파일 30개, 매일 9시" autocomplete="off" />
+                </label>
+                <label>
+                  <span>중지조건</span>
+                  <input id="routineStop" type="text" placeholder="예: 오류 팝업, 저장 전 확인" autocomplete="off" />
+                </label>
+              </div>
+            </details>
+          </div>
+          <section class="routine-step-list" id="routineStepList"></section>
+          <div class="routine-button-row routine-edit-buttons">
+            <button class="routine-secondary-button" type="button" id="routineClearButton">
+              <i data-lucide="trash-2"></i>
+              비우기
+            </button>
+            <button class="routine-apply-button" type="button" id="routineAddStepButton">
+              <i data-lucide="plus"></i>
+              단계 추가
+            </button>
+            <button class="routine-secondary-button" type="button" id="routineUpdateStepButton" disabled>
+              <i data-lucide="save"></i>
+              수정 저장
+            </button>
+          </div>
+          <div class="routine-button-row">
+            <button class="routine-secondary-button" type="button" id="routineSaveButton">
+              <i data-lucide="save"></i>
+              저장
+            </button>
+            <button class="routine-secondary-button" type="button" id="routineLoadButton">
+              <i data-lucide="folder-open"></i>
+              불러오기
+            </button>
+          </div>
+          <section class="routine-run-card">
+            <label class="routine-delay-field">
+              <span>실행 대기초</span>
+              <input id="routineRunDelay" type="number" min="0" max="60" step="0.5" value="3" />
+            </label>
+            <label class="routine-delay-field">
+              <span>전체 반복 횟수</span>
+              <input id="routineRunRepeat" type="number" min="1" max="999" step="1" value="1" inputmode="numeric" />
+            </label>
+            <label class="routine-infinite-field">
+              <input id="routineRunForever" type="checkbox" />
+              <span>중지할 때까지 무한 반복</span>
+            </label>
+            <div class="routine-record-status" id="routineRunStatus">실행 대기 중</div>
+            <p class="routine-run-stop-hint"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F12</kbd> 또는 실행 중지 버튼으로 언제든 멈춥니다.</p>
+            <div class="routine-approval-card" id="routineApprovalCard" role="alertdialog" aria-labelledby="routineApprovalTitle" aria-describedby="routineApprovalHelp" hidden>
+              <i data-lucide="shield-question"></i>
+              <div>
+                <strong id="routineApprovalTitle">사용자 승인 대기</strong>
+                <span id="routineApprovalHelp">승인 전에는 실행이 이 단계에서 멈춰 있습니다.</span>
+              </div>
+              <div class="routine-button-row">
+                <button class="routine-secondary-button" type="button" id="routineApprovalRejectButton">
+                  <i data-lucide="x"></i>
+                  거부하고 중지
+                </button>
+                <button class="routine-apply-button" type="button" id="routineApprovalApproveButton">
+                  <i data-lucide="check"></i>
+                  승인하고 계속
+                </button>
+              </div>
+            </div>
+            <div class="routine-button-row">
+              <button class="routine-apply-button" type="button" id="routineRunButton">
+                <i data-lucide="play"></i>
+                실행 시작
+              </button>
+              <button class="routine-secondary-button" type="button" id="routineRunStopButton" disabled>
+                <i data-lucide="square"></i>
+                실행 중지
+              </button>
+            </div>
+          </section>
+          <button class="routine-apply-button is-wide" type="button" id="routineApplyButton">
+            <i data-lucide="list-plus"></i>
+            단계표 넣기
+          </button>
+          </section>
+          <section class="routine-pane" id="routineAutoPane" data-routine-pane="auto">
+            <div class="routine-auto-card">
+              <i data-lucide="video"></i>
+              <div>
+                <strong>Series 4로 실제 작업 기록</strong>
+                <span>화면 영상과 전역 키보드·마우스 흐름을 함께 기록하고, 최근 세션을 안전하게 검토합니다.</span>
+              </div>
+            </div>
+
+            <section class="series4-engine-card" aria-labelledby="series4EngineTitle">
+              <div class="series4-engine-heading">
+                <div>
+                  <strong id="series4EngineTitle">Series 4 엔진</strong>
+                  <span id="series4EngineVersion">버전 —</span>
+                </div>
+                <span class="series4-status-badge" id="series4EngineStatus" data-state="checking" role="status" aria-live="polite">확인 중</span>
+              </div>
+              <p class="series4-engine-copy" id="series4EngineHelp">설치 상태를 확인하고 있습니다.</p>
+              <div class="routine-button-row series4-engine-actions">
+                <button class="routine-secondary-button" type="button" id="series4InstallButton" disabled>
+                  <i data-lucide="download"></i>
+                  <span>설치</span>
+                </button>
+                <button class="routine-secondary-button" type="button" id="series4CancelInstallButton" hidden>
+                  <i data-lucide="x"></i>
+                  <span>설치 취소</span>
+                </button>
+                <button class="routine-apply-button" type="button" id="series4LaunchButton" disabled>
+                  <i data-lucide="radio"></i>
+                  <span>Series 4 녹화 열기</span>
+                </button>
+              </div>
+              <div class="series4-progress" id="series4ProgressWrap" hidden aria-live="polite" aria-atomic="true">
+                <div>
+                  <span id="series4ProgressText">설치 준비 중</span>
+                  <span id="series4ProgressValue">0%</span>
+                </div>
+                <progress id="series4Progress" max="100" value="0" aria-label="Series 4 설치 진행률"></progress>
+              </div>
+              <p class="series4-stop-hint">Series 4 재생 중 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F12</kbd>를 누르면 어느 화면에서든 긴급 중지합니다.</p>
+            </section>
+
+            <aside class="series4-privacy-note" aria-label="기록 개인정보 안내">
+              <i data-lucide="shield-alert"></i>
+              <p><strong>기록 전 확인</strong> 주 모니터 화면과 재생용 텍스트를 포함한 입력 이벤트가 로컬 MP4·JSON에 저장됩니다. OneDrive 동기화 폴더라면 클라우드에도 올라갈 수 있으니 비밀번호 입력 전에는 녹화를 끝내세요.</p>
+            </aside>
+
+            <section class="series4-sessions" aria-labelledby="series4SessionsTitle">
+              <div class="series4-section-heading">
+                <div>
+                  <strong id="series4SessionsTitle">최근 기록</strong>
+                  <span id="series4SessionCount">0개</span>
+                </div>
+                <button class="routine-secondary-button series4-refresh-button" type="button" id="series4RefreshButton" disabled>
+                  <i data-lucide="refresh-cw"></i>
+                  <span>새로고침</span>
+                </button>
+              </div>
+              <div class="series4-session-list" id="series4SessionList" role="list" aria-live="polite">
+                <p class="series4-empty">엔진 상태를 확인하는 중입니다.</p>
+              </div>
+              <article class="series4-session-review" id="series4SessionReview" tabindex="-1" hidden>
+                <div class="series4-review-heading">
+                  <div>
+                    <span>선택한 기록</span>
+                    <strong id="series4ReviewTitle">세션 검토</strong>
+                  </div>
+                  <span id="series4ReviewDuration">—</span>
+                </div>
+                <dl class="series4-review-meta" id="series4ReviewMeta"></dl>
+                <div class="series4-event-counts" id="series4ReviewCounts" aria-label="입력 종류별 개수"></div>
+                <div class="series4-video-review" id="series4VideoReview" hidden>
+                  <video id="series4VideoPreview" controls preload="metadata" aria-label="선택한 Series 4 기록 영상"></video>
+                  <div class="series4-timeline" id="series4Timeline" hidden>
+                    <div class="series4-timeline-heading">
+                      <span>입력 타임라인</span>
+                      <span>입력 내용 없이 종류와 시점만 표시</span>
+                    </div>
+                    <div class="series4-timeline-track" id="series4TimelineTrack" role="list" aria-label="기록된 입력 시점"></div>
+                  </div>
+                </div>
+                <div class="routine-button-row">
+                  <button class="routine-secondary-button" type="button" id="series4OpenVideoButton" disabled>
+                    <i data-lucide="play-circle"></i>
+                    <span>영상 열기</span>
+                  </button>
+                  <button class="routine-secondary-button" type="button" id="series4OpenFolderButton" disabled>
+                    <i data-lucide="folder-open"></i>
+                    <span>보관 폴더 열기</span>
+                  </button>
+                </div>
+              </article>
+            </section>
+
+            <details class="routine-advanced routine-legacy-auto">
+              <summary>
+                <span>기존 간단 녹화·설계 도구</span>
+                <i data-lucide="chevron-down"></i>
+              </summary>
+              <div class="routine-advanced-body">
+                <div class="routine-tool-grid">
+                  <label>
+                    <span>업무명</span>
+                    <input id="routineAutoTask" type="text" placeholder="예: 미처리 건 조회 후 엑셀 저장" autocomplete="off" />
+                  </label>
+                  <label>
+                    <span>녹화 시작 대기초</span>
+                    <input id="routineRecordDelay" type="number" min="0" max="60" step="0.5" value="2" />
+                  </label>
+                  <label>
+                    <span>방식</span>
+                    <select id="routineAutoMode">
+                      <option value="record">사용자가 한 번 수행한 흐름을 단계표로 정리</option>
+                      <option value="describe">말로 설명한 업무를 단계표로 정리</option>
+                      <option value="screenshot" disabled>스크린샷/OCR 확인 지점 · 설계 전용</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>반복대상</span>
+                    <input id="routineAutoRepeat" type="text" placeholder="예: 엑셀 행 전체, 파일 30개, 매일 9시" autocomplete="off" />
+                  </label>
+                  <label>
+                    <span>주의사항</span>
+                    <textarea id="routineAutoCaution" rows="4" placeholder="예: 저장/제출 전에는 반드시 확인, 비밀번호 입력 구간 제외"></textarea>
+                  </label>
+                </div>
+                <div class="routine-record-status" id="routineRecordStatus">간단 녹화 대기 중</div>
+                <div class="routine-button-row">
+                  <button class="routine-apply-button" type="button" id="routineRecordButton">
+                    <i data-lucide="radio"></i>
+                    간단 녹화 시작
+                  </button>
+                  <button class="routine-secondary-button" type="button" id="routineRecordStopButton" disabled>
+                    <i data-lucide="square"></i>
+                    녹화 종료
+                  </button>
+                </div>
+                <button class="routine-secondary-button is-wide" type="button" id="routineAutoPromptButton">
+                  <i data-lucide="message-square-plus"></i>
+                  자동 설정 요청문 넣기
+                </button>
+              </div>
+            </details>
+          </section>
+        </aside>
+        <aside class="frustration-panel" id="frustrationPanel" hidden>
+          <header>
+            <div>
+              <strong>문서 입력기</strong>
+              <span>문서 쪼개서 입력</span>
+            </div>
+            <i data-lucide="angry"></i>
+          </header>
+          <section class="frustration-intro-card">
+            <i data-lucide="keyboard"></i>
+            <div>
+              <strong>회사툴이 답답하면 한 덩어리씩 넣습니다</strong>
+              <span>원문을 제목ㆍ문단ㆍ표로 나눈 뒤, 회사 웹문서 첫 위치에 커서를 두고 매크로가 붙여넣기와 Enter/Tab을 대신 누릅니다.</span>
+            </div>
+          </section>
+          <div class="frustration-tool-grid">
+            <label>
+              <span>원문</span>
+              <textarea id="frustrationSource" rows="8" placeholder="보고서 원문, 엑셀에서 복사한 표, 한글에서 가져온 문단을 여기에 붙여넣으세요."></textarea>
+            </label>
+            <div class="frustration-button-row">
+              <button class="frustration-secondary-button" type="button" id="frustrationSampleButton">
+                <i data-lucide="flask-conical"></i>
+                샘플
+              </button>
+              <button class="frustration-apply-button" type="button" id="frustrationParseButton">
+                <i data-lucide="split-square-horizontal"></i>
+                쪼개기
+              </button>
+            </div>
+            <button class="frustration-secondary-button is-wide" type="button" id="frustrationPromptButton">
+              <i data-lucide="message-square-plus"></i>
+              분해 요청문 넣기
+            </button>
+            <section class="frustration-block-list" id="frustrationBlockList"></section>
+            <div class="frustration-field-row">
+              <label>
+                <span>입력 방식</span>
+                <select id="frustrationDriver">
+                  <option value="web-first">웹 우선</option>
+                  <option value="web-only">웹만</option>
+                  <option value="routine-only">좌표만</option>
+                </select>
+              </label>
+              <label>
+                <span>웹 포트</span>
+                <input id="frustrationWebPort" type="number" min="1" max="65535" value="9222" />
+              </label>
+            </div>
+            <label>
+              <span>대상 제목/URL</span>
+              <input id="frustrationWebTarget" type="text" placeholder="비워두면 첫 웹문서 탭" autocomplete="off" />
+            </label>
+            <div class="frustration-button-row">
+              <button class="frustration-secondary-button" type="button" id="frustrationOpenBrowserButton">
+                <i data-lucide="globe-2"></i>
+                브라우저 열기
+              </button>
+              <button class="frustration-secondary-button" type="button" id="frustrationCheckWebButton">
+                <i data-lucide="radar"></i>
+                웹 확인
+              </button>
+            </div>
+            <div class="frustration-field-row">
+              <label>
+                <span>시작 대기</span>
+                <input id="frustrationRunDelay" type="number" min="0" max="60" value="3" />
+              </label>
+              <label>
+                <span>입력 간격</span>
+                <input id="frustrationStepDelay" type="number" min="0" max="5" step="0.1" value="0.15" />
+              </label>
+            </div>
+            <div class="frustration-status" id="frustrationRunStatus">원문을 붙여넣고 쪼개기부터 누르세요.</div>
+            <div class="frustration-button-row">
+              <button class="frustration-apply-button" type="button" id="frustrationRunParagraphsButton">
+                <i data-lucide="pilcrow"></i>
+                문단 입력
+              </button>
+              <button class="frustration-apply-button" type="button" id="frustrationRunTableButton">
+                <i data-lucide="table-2"></i>
+                선택 표 채우기
+              </button>
+            </div>
+            <button class="frustration-secondary-button is-wide" type="button" id="frustrationStopButton" disabled>
+              <i data-lucide="square"></i>
+              중지
+            </button>
+          </div>
+        </aside>
+        <aside class="privacy-panel" id="privacyPanel" hidden>
+          <header>
+            <div>
+              <strong>김개보 검사실</strong>
+              <span>열린 창 개인정보 검사</span>
+            </div>
+            <i data-lucide="shield-check"></i>
+          </header>
+          <section class="privacy-intro-card">
+            <i data-lucide="scan-text"></i>
+            <div>
+              <strong>먼저 열린 창을 확인하고 고른 것만 봅니다</strong>
+              <span>웹ㆍ한글ㆍ문서는 확장 없이 전체 선택/복사로 시도합니다. 읽히지 않으면 파일이나 텍스트를 받아 검사합니다.</span>
+            </div>
+          </section>
+          <label class="privacy-mode-switch">
+            <span>
+              <strong id="privacyModeLabel">채팅 모드</strong>
+              <small id="privacyModeHelp">일반 질문은 김개보가 답합니다. 민감한 원문은 아래 로컬 검사 도구를 사용하세요.</small>
+            </span>
+            <input id="privacyModeToggle" type="checkbox" role="switch" aria-label="김개보 채팅 모드 전환" checked />
+            <i aria-hidden="true"></i>
+          </label>
+          <div class="privacy-tool-grid">
+            <div class="privacy-button-row">
+              <button class="privacy-apply-button" type="button" id="privacyRefreshWindowsButton">
+                <i data-lucide="list-checks"></i>
+                열린 창 확인
+              </button>
+              <button class="privacy-secondary-button" type="button" id="privacyInspectWindowsButton" disabled>
+                <i data-lucide="shield-search"></i>
+                선택 창 검사
+              </button>
+            </div>
+            <div class="privacy-status" id="privacyStatus">열린 창 확인을 먼저 누르세요.</div>
+            <section class="privacy-window-list" id="privacyWindowList"></section>
+            <label>
+              <span>텍스트 직접 검사</span>
+              <textarea id="privacyManualText" rows="7" placeholder="복사가 안 되는 웹/한글 내용은 여기에 붙여넣으면 바로 검사합니다."></textarea>
+            </label>
+            <button class="privacy-secondary-button is-wide" type="button" id="privacyScanTextButton">
+              <i data-lucide="file-search"></i>
+              붙여넣은 텍스트 검사
+            </button>
+            <section class="privacy-result-list" id="privacyResultList"></section>
+          </div>
+        </aside>
+        <aside class="image-panel" id="imagePanel" hidden>
+          <header>
+            <div>
+              <strong>김그림 설정</strong>
+              <span>생성 전 확인</span>
+            </div>
+            <i data-lucide="palette"></i>
+          </header>
+          <section class="image-draft-card">
+            <i data-lucide="sparkles"></i>
+            <div>
+              <strong>프롬프트 초안</strong>
+              <span>김그림이 먼저 채우고, 여기서 가볍게 고친 뒤 응을 누르면 생성합니다.</span>
+            </div>
+          </section>
+          <div class="image-tool-grid">
+            <label>
+              <span>용도</span>
+              <input id="imagePurpose" type="text" placeholder="예: PPT 배경, 보고서 삽화, 프사" autocomplete="off" />
+            </label>
+            <div class="image-field-row">
+              <label>
+                <span>비율</span>
+                <select id="imageRatio">
+                  <option value="auto">자동</option>
+                  <option value="1:1">1:1</option>
+                  <option value="16:9">16:9</option>
+                  <option value="9:16">9:16</option>
+                  <option value="4:3">4:3</option>
+                  <option value="3:4">3:4</option>
+                </select>
+              </label>
+              <label>
+                <span>크기</span>
+                <select id="imageSizeHint">
+                  <option value="auto">자동</option>
+                  <option value="768x768">768x768</option>
+                  <option value="1024x1024">1024x1024</option>
+                  <option value="1344x768">1344x768</option>
+                  <option value="768x1344">768x1344</option>
+                  <option value="1152x864">1152x864</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>스타일</span>
+              <select id="imageStyle">
+                <option value="auto">자동</option>
+                <option value="realistic photo">자연스러운 사진</option>
+                <option value="editorial illustration">편집 삽화</option>
+                <option value="scientific illustration">자료용 도식</option>
+                <option value="cinematic poster">영화 포스터풍</option>
+                <option value="childlike doodle">낙서풍</option>
+              </select>
+            </label>
+            <label>
+              <span>포지티브</span>
+              <textarea id="imagePositivePrompt" rows="6" placeholder="김그림이 생성 프롬프트를 채우면 여기서 수정하세요."></textarea>
+            </label>
+            <label>
+              <span>네거티브</span>
+              <textarea id="imageNegativePrompt" rows="4" placeholder="피해야 할 요소를 수정하세요."></textarea>
+            </label>
+          </div>
+          <div class="image-button-row">
+            <button class="image-secondary-button" type="button" id="imageClearButton">
+              <i data-lucide="eraser"></i>
+              비우기
+            </button>
+            <button class="image-apply-button" type="button" id="imagePromptButton">
+              <i data-lucide="message-square-plus"></i>
+              요청문 넣기
+            </button>
+          </div>
+        </aside>
+        <aside class="stt-panel" id="sttPanel" hidden>
+          <header>
+            <div>
+              <strong>김속기 받아쓰기</strong>
+              <span>로컬 STT · 원문 자동 저장</span>
+            </div>
+            <i data-lucide="mic"></i>
+          </header>
+          <section class="stt-live-card">
+            <div>
+              <span id="sttStage">대기</span>
+              <strong id="sttStatus">녹음 대기 중</strong>
+            </div>
+            <div>
+              <span>시간</span>
+              <strong id="sttTimer">00:00</strong>
+            </div>
+            <div class="stt-recording-badge" id="sttRecordingBadge" hidden title="녹음 중">
+              <span class="stt-recording-dot"></span>
+              <i data-lucide="audio-lines"></i>
+              <strong>REC</strong>
+            </div>
+          </section>
+          <div class="stt-stage-strip" id="sttStageStrip" aria-label="받아쓰기 처리 단계">
+            <span data-stt-stage="capture">녹음·읽기</span>
+            <span data-stt-stage="transcribe">받아쓰기</span>
+            <span data-stt-stage="export">저장</span>
+          </div>
+          <div class="stt-tool-grid">
+            <details class="stt-runtime-manager" id="sttRuntimeManager">
+              <summary>
+                <span>로컬 음성 엔진</span>
+                <strong id="sttRuntimeSummary">설치 상태 확인 중</strong>
+              </summary>
+              <div class="stt-runtime-details">
+                <p class="stt-runtime-privacy">음성은 이 컴퓨터에서 처리합니다. 실행기·Turbo 모델·무음 감지는 배포본에 포함되며 SHA-256을 확인합니다. 다른 모델은 인터넷 주소를 받지 않고 검토된 파일을 직접 선택해 설치합니다.</p>
+                <div class="stt-component-list" id="sttAssetList">
+                  <article class="stt-component" data-stt-asset-card="runtime-whisper-cpp-1.9.2">
+                    <div>
+                      <strong>whisper.cpp 실행기</strong>
+                      <span>v1.9.2 · Windows CPU x64 · 기본 포함</span>
+                      <small data-stt-asset-status>설치 여부 확인 중</small>
+                    </div>
+                    <button class="stt-mini-button" type="button" data-stt-install-asset="runtime-whisper-cpp-1.9.2" disabled>기본 포함</button>
+                  </article>
+                  <article class="stt-component" data-stt-asset-card="model-small-q5_1">
+                    <div>
+                      <strong>가벼운 모델 <em>영어 음성 권장</em></strong>
+                      <span>small-q5_1 · 약 181MB · 로컬 파일 설치</span>
+                      <small data-stt-asset-status>설치 여부 확인 중</small>
+                    </div>
+                    <button class="stt-mini-button" type="button" data-stt-install-asset="model-small-q5_1">파일 선택·설치</button>
+                  </article>
+                  <article class="stt-component stt-component-recommended" data-stt-asset-card="model-large-v3-turbo-q5_0">
+                    <div>
+                      <strong>고성능 모델 <em>한국어 권장 · 기본 포함</em></strong>
+                      <span>large-v3-turbo-q5_0 · 약 547MB · 기본 선택</span>
+                      <small data-stt-asset-status>설치 여부 확인 중</small>
+                    </div>
+                    <button class="stt-mini-button" type="button" data-stt-install-asset="model-large-v3-turbo-q5_0" disabled>기본 포함</button>
+                  </article>
+                  <article class="stt-component" data-stt-asset-card="vad-silero-6.2.0">
+                    <div>
+                      <strong>무음 감지</strong>
+                      <span>Silero VAD v6.2.0 · 약 0.9MB · 기본 포함</span>
+                      <small data-stt-asset-status>설치 여부 확인 중</small>
+                    </div>
+                    <button class="stt-mini-button" type="button" data-stt-install-asset="vad-silero-6.2.0" disabled>기본 포함</button>
+                  </article>
+                </div>
+                <div class="stt-install-progress" id="sttInstallProgress" hidden>
+                  <div>
+                    <strong id="sttInstallProgressLabel">로컬 파일 확인 준비 중</strong>
+                    <span id="sttInstallProgressValue">0%</span>
+                  </div>
+                  <progress id="sttInstallProgressBar" max="100" value="0" aria-labelledby="sttInstallProgressLabel">0%</progress>
+                  <button class="stt-mini-button stt-cancel-button" type="button" id="sttInstallCancel">설치 취소</button>
+                </div>
+              </div>
+            </details>
+            <div class="stt-field-row">
+              <label>
+                <span>언어</span>
+                <select id="sttLanguage">
+                  <option value="ko">한국어 · 고성능 모델 권장</option>
+                  <option value="auto">자동</option>
+                  <option value="en">영어 · small 권장</option>
+                </select>
+              </label>
+              <label>
+                <span>성능</span>
+                <select id="sttModel">
+                  <option value="lite">Lite · small-q5_1 · 영어·저사양 권장</option>
+                  <option value="recommended" selected>기본 · large-v3-turbo-q5_0 · 한국어 권장</option>
+                </select>
+              </label>
+            </div>
+            <div class="stt-runtime-note" id="sttPerformanceWarning" data-state="warning" hidden></div>
+            <label>
+              <span>결과 모드</span>
+              <select id="sttResultMode">
+                <option value="cleanup">깔끔한 정제본</option>
+                <option value="minutes">회의록</option>
+                <option value="tasks">할 일 추출</option>
+                <option value="ppt">PPT 재료</option>
+              </select>
+            </label>
+            <label>
+              <span>전문용어·이름 힌트 <small id="sttPromptCounter">0/500</small></span>
+              <textarea class="stt-prompt-input" id="sttInitialPrompt" rows="3" maxlength="500" placeholder="예: RFP, RF 케이블, 담당자명, HEYU&#10;정답을 강제하지 않고 인식 힌트로만 씁니다."></textarea>
+            </label>
+            <label class="stt-toggle-field">
+              <input id="sttVad" type="checkbox" checked />
+              <span>무음 구간 건너뛰기</span>
+            </label>
+            <label class="stt-toggle-field">
+              <input id="sttRetainAudio" type="checkbox" checked />
+              <span>처리용 음성 보관 <small>끄면 전사 성공 뒤 삭제</small></span>
+            </label>
+            <div class="stt-runtime-note" id="sttVadStatus">무음 감지 준비 확인 중</div>
+            <div class="stt-button-row">
+              <button class="stt-apply-button" type="button" id="sttRecordButton">
+                <i data-lucide="radio"></i>
+                녹음 시작
+              </button>
+              <button class="stt-secondary-button" type="button" id="sttStopButton" disabled>
+                <i data-lucide="square"></i>
+                정지+STT
+              </button>
+              <input id="sttFileInput" type="file" accept="audio/*,.wav,.mp3,.m4a,.mp4,.webm,.ogg,.flac,.aac" hidden />
+              <button class="stt-secondary-button stt-file-button" type="button" id="sttFileButton">
+                <i data-lucide="file-audio"></i>
+                녹음본 열기+STT
+              </button>
+              <button class="stt-secondary-button stt-cancel-button stt-transcribe-cancel" type="button" id="sttCancelButton" hidden disabled>
+                <i data-lucide="circle-stop"></i>
+                Whisper 받아쓰기 취소
+              </button>
+            </div>
+            <div class="stt-runtime-note">사용 방법 · 녹음본은 <b>녹음본 열기+STT</b>를 누르면 바로 받아씁니다. 마이크는 <b>녹음 시작 → 정지+STT</b> 순서로 누릅니다. 별도 저장 버튼은 없으며 완료되면 아래 결과 카드에 TXT·SRT·VTT·JSON 버튼과, 음성 보관을 켠 경우 처리용 음성 버튼이 생깁니다. 각 버튼을 누르면 저장 위치를 엽니다.</div>
+            <div class="stt-runtime-note"><b>모델 안내</b> · 기본 포함된 large-v3-turbo-q5_0은 한국어 품질을 우선하지만 PC에 따라 무거울 수 있습니다. small-q5_1은 로컬 파일로 설치할 수 있으며 Lite·영어 음성·저사양 PC에 권장합니다.</div>
+            <div class="stt-runtime-note">Whisper 받아쓰기 중에는 위 취소 버튼으로 작업을 중단할 수 있습니다.</div>
+            <div class="stt-runtime-note" id="sttCapacityNote">고정 시간 제한은 없습니다. 다만 메모리·디스크 보호를 위해 처리용 음성은 작업당 기본 120MB까지이며, 길수록 준비와 받아쓰기에 시간이 더 걸립니다.</div>
+            <label>
+              <span>받아쓰기 원문 <small>Whisper 결과 · AI 초안 아님</small></span>
+              <textarea id="sttTranscript" rows="9" placeholder="녹음이 끝나면 Whisper 받아쓰기 결과가 여기에 들어옵니다."></textarea>
+            </label>
+            <section class="stt-output-card" id="sttOutputCard" hidden>
+              <div>
+                <strong>원문·자막 파일</strong>
+                <span>자동 저장된 TXT/SRT/VTT/JSON과 처리용 음성 버튼을 눌러 파일 위치를 엽니다.</span>
+              </div>
+              <div class="stt-output-links" id="sttOutputLinks"></div>
+            </section>
+            <div class="stt-ai-boundary">
+              <strong>AI 초안 만들기</strong>
+              <span>받아쓰기는 로컬에서 처리하지만, 아래 작업은 원문을 현재 LLM 연결로 넘깁니다. 외부 OpenAI 호환 서버를 설정했다면 그 서버로 전송될 수 있으며 받아쓰기 원문은 덮어쓰지 않습니다.</span>
+            </div>
+          </div>
+          <div class="stt-button-grid">
+            <button class="stt-apply-button" type="button" id="sttApplyModeButton">
+              <i data-lucide="wand-sparkles"></i>
+              선택 모드로 초안 요청
+            </button>
+            <button class="stt-secondary-button" type="button" id="sttRawButton">
+              <i data-lucide="text"></i>
+              원문 넣기
+            </button>
+            <button class="stt-secondary-button" type="button" id="sttCleanupButton">
+              <i data-lucide="sparkles"></i>
+              정제 요청
+            </button>
+            <button class="stt-secondary-button" type="button" id="sttMinutesButton">
+              <i data-lucide="notebook-tabs"></i>
+              회의록
+            </button>
+            <button class="stt-secondary-button" type="button" id="sttTasksButton">
+              <i data-lucide="clipboard-check"></i>
+              할 일
+            </button>
+            <button class="stt-secondary-button" type="button" id="sttPptButton">
+              <i data-lucide="presentation"></i>
+              PPT 재료
+            </button>
+          </div>
+        </aside>
+        <aside class="document-resource-panel" id="documentResourcePanel" hidden aria-label="김자원 문서 자원 추출">
+          <header>
+            <div>
+              <strong>김자원 문서 자원</strong>
+              <span>로컬 전용 · 지원 33종</span>
+            </div>
+            <i data-lucide="package-search"></i>
+          </header>
+          <div class="document-resource-scroll">
+            <button class="document-resource-drop" type="button" id="documentResourceSelectButton" aria-describedby="documentResourceDropHelp">
+              <i data-lucide="file-input"></i>
+              <strong>문서 선택</strong>
+              <span id="documentResourceDropHelp">클릭해서 안전한 파일 선택 창을 엽니다. 이 영역에 파일을 놓으면 경로를 읽지 않고 선택 창으로 안내합니다.</span>
+            </button>
+            <details class="document-resource-formats">
+              <summary>지원 형식 33종 보기</summary>
+              <div>
+                <span>한글</span><code>HWPX</code>
+                <span>Word</span><code>DOCX DOCM DOTX DOTM</code>
+                <span>PowerPoint</span><code>PPTX PPTM POTX POTM PPSX PPSM</code>
+                <span>Excel</span><code>XLSX XLSM XLSB XLTX XLTM</code>
+                <span>OpenDocument</span><code>ODT ODS ODP ODG OTT OTS OTP OTG</code>
+                <span>Visio</span><code>VSDX VSDM VSSX VSSM VSTX VSTM</code>
+                <span>고정 문서</span><code>XPS OXPS</code>
+                <span>전자책</span><code>EPUB</code>
+              </div>
+              <p>PDF, 일반 ZIP, 구형 HWP·DOC·PPT·XLS, 암호화·DRM·손상 문서와 100MB 초과 문서는 지원하지 않습니다.</p>
+            </details>
+            <section class="document-resource-progress" id="documentResourceProgress" hidden aria-live="polite">
+              <div>
+                <strong id="documentResourceProgressLabel">문서를 확인하는 중</strong>
+                <span id="documentResourceProgressValue">0%</span>
+              </div>
+              <progress id="documentResourceProgressBar" max="100" value="0">0%</progress>
+            </section>
+            <section class="document-resource-summary" id="documentResourceSummary" aria-live="polite">
+              <strong>아직 선택한 문서가 없습니다.</strong>
+              <span>문서를 고르면 파일 형식, 리소스 수와 분류별 개수를 여기에 표시합니다.</span>
+            </section>
+            <section class="document-resource-browser" id="documentResourceBrowser" hidden>
+              <label class="document-resource-search">
+                <span>리소스 검색</span>
+                <input id="documentResourceSearch" type="search" placeholder="파일명·경로·사용 위치" autocomplete="off" />
+              </label>
+              <div class="document-resource-filters" id="documentResourceFilters" role="group" aria-label="리소스 분류"></div>
+              <div class="document-resource-count" id="documentResourceCount">0개</div>
+              <div class="document-resource-list" id="documentResourceList" role="list" aria-label="추출된 리소스"></div>
+            </section>
+            <section class="document-resource-detail" id="documentResourceDetail" hidden aria-live="polite">
+              <div class="document-resource-preview" id="documentResourcePreview">
+                <i data-lucide="image-off"></i>
+                <span>미리보기를 눌러 확인하세요.</span>
+              </div>
+              <div class="document-resource-detail-copy">
+                <strong id="documentResourceDetailName">선택한 리소스</strong>
+                <dl>
+                  <dt>분류</dt><dd id="documentResourceDetailCategory">-</dd>
+                  <dt>크기</dt><dd id="documentResourceDetailSize">-</dd>
+                  <dt>내부 경로</dt><dd id="documentResourceDetailPath">-</dd>
+                  <dt>사용 위치</dt><dd id="documentResourceDetailUsage">-</dd>
+                </dl>
+              </div>
+              <div class="document-resource-button-row">
+                <button class="document-resource-secondary-button" type="button" id="documentResourcePreviewButton">
+                  <i data-lucide="scan-eye"></i>
+                  안전 미리보기
+                </button>
+                <button class="document-resource-apply-button" type="button" id="documentResourceSaveButton">
+                  <i data-lucide="download"></i>
+                  선택 저장
+                </button>
+              </div>
+            </section>
+            <section class="document-resource-warning">
+              <i data-lucide="shield-alert"></i>
+              <span>스크립트·매크로·실행 파일은 찾기만 하고 실행하지 않습니다. 추출 파일의 안전성과 재사용 권한은 저장 전에 확인하세요.</span>
+            </section>
+            <section class="document-resource-boundary">
+              <strong>채팅과 문서 분석은 분리됩니다.</strong>
+              <span>문서 바이트와 본문은 현재 채팅 LLM 제공자에게 자동 전송하지 않습니다. 채팅에는 직접 입력한 메시지만 전달됩니다.</span>
+            </section>
+          </div>
+          <section class="document-resource-status" id="documentResourceStatus" data-state="idle" aria-live="polite">
+            <strong>대기 중</strong>
+            <span>원본을 수정하지 않고 로컬에서만 분석합니다.</span>
+          </section>
+          <div class="document-resource-actions">
+            <button class="document-resource-apply-button" type="button" id="documentResourceSaveAllButton" disabled>
+              <i data-lucide="archive"></i>
+              전체 ZIP
+            </button>
+            <button class="document-resource-secondary-button" type="button" id="documentResourceCancelButton" disabled>
+              <i data-lucide="circle-stop"></i>
+              취소
+            </button>
+            <button class="document-resource-secondary-button" type="button" id="documentResourceClearButton" disabled>
+              <i data-lucide="trash-2"></i>
+              비우기
+            </button>
+            <button class="document-resource-secondary-button" type="button" id="documentResourceOpenOutputButton">
+              <i data-lucide="folder-open"></i>
+              결과 폴더
+            </button>
+          </div>
+        </aside>
+        <aside class="converter-panel" id="converterPanel" hidden>
+          <header>
+            <div>
+              <strong>김병환 변환</strong>
+              <span>이미지 · PDF</span>
+            </div>
+            <i data-lucide="file-cog"></i>
+          </header>
+          <section class="converter-receive-card">
+            <i data-lucide="inbox"></i>
+            <div>
+              <strong>파일 슬롯</strong>
+              <span>JPG, PNG, WebP, AVIF, TIFF 변환과 PDF 병합을 여기서 바로 처리합니다.</span>
+            </div>
+          </section>
+          <section class="converter-slot-list" id="converterSlots"></section>
+          <div class="converter-button-row">
+            <button class="converter-secondary-button" type="button" id="converterAddButton">
+              <i data-lucide="file-plus-2"></i>
+              파일 더 넣기
+            </button>
+            <button class="converter-secondary-button" type="button" id="converterClearButton">
+              <i data-lucide="trash-2"></i>
+              비우기
+            </button>
+          </div>
+          <div class="converter-tabs" role="tablist" aria-label="김병환 도구">
+            <button class="converter-tab is-active" type="button" data-converter-tab="image">이미지 변환</button>
+            <button class="converter-tab" type="button" data-converter-tab="pdf">PDF 작업</button>
+            <button class="converter-tab" type="button" data-converter-tab="compress">용량 줄이기</button>
+          </div>
+          <section class="converter-tab-pane is-active" data-converter-pane="image">
+          <div class="converter-tool-grid">
+            <div class="converter-field-row">
+              <label>
+                <span>이미지 출력</span>
+                <select id="converterImageFormat">
+                  <option value="png">PNG</option>
+                  <option value="jpg">JPG</option>
+                  <option value="webp">WebP</option>
+                  <option value="avif">AVIF</option>
+                  <option value="tiff">TIFF</option>
+                </select>
+              </label>
+              <label>
+                <span>품질</span>
+                <input id="converterQuality" type="number" min="1" max="100" value="85" />
+              </label>
+            </div>
+            <label>
+              <span>투명 배경 처리</span>
+              <select id="converterBackground">
+                <option value="transparent">가능하면 유지</option>
+                <option value="white">흰색으로 채우기</option>
+                <option value="black">검정으로 채우기</option>
+              </select>
+            </label>
+            <label>
+              <span>PDF 병합 파일명</span>
+              <input id="converterPdfName" type="text" placeholder="예: 민원자료_통합본" autocomplete="off" />
+            </label>
+          </div>
+          <div class="converter-button-row">
+            <button class="converter-apply-button" type="button" id="converterRunImageButton">
+              <i data-lucide="image"></i>
+              이미지 변환
+            </button>
+            <button class="converter-apply-button" type="button" id="converterRunPdfButton">
+              <i data-lucide="files"></i>
+              PDF 병합
+            </button>
+          </div>
+          </section>
+          <section class="converter-tab-pane" data-converter-pane="compress" hidden>
+            <section class="converter-compress-card">
+              <div class="converter-tool-grid">
+                <label>
+                  <span>대상</span>
+                  <select id="converterCompressTarget">
+                    <option value="auto">슬롯의 이미지와 PDF</option>
+                    <option value="image">이미지만</option>
+                    <option value="pdf">PDF만</option>
+                  </select>
+                </label>
+                <div class="converter-field-row">
+                  <label>
+                    <span>압축 강도</span>
+                    <select id="converterCompressLevel">
+                      <option value="balanced">보통</option>
+                      <option value="light">약하게</option>
+                      <option value="strong">강하게</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>이미지 품질</span>
+                    <input id="converterCompressQuality" type="number" min="1" max="100" value="75" />
+                  </label>
+                </div>
+                <label>
+                  <span>이미지 최대 긴 변(px)</span>
+                  <input id="converterCompressMaxDimension" type="number" min="256" max="12000" value="1920" />
+                </label>
+                <p class="converter-tool-note">PDF는 원본을 건드리지 않고 안전 최적화로 새 파일을 만듭니다. 스캔본 이미지를 강제로 낮추는 방식은 아직 쓰지 않습니다.</p>
+              </div>
+              <button class="converter-apply-button is-wide" type="button" id="converterRunCompressButton">
+                <i data-lucide="archive"></i>
+                용량 줄이기
+              </button>
+            </section>
+          </section>
+          <section class="converter-tab-pane" data-converter-pane="pdf" hidden>
+            <section class="converter-pdf-actions-card">
+              <label>
+                <span>대상 PDF</span>
+                <select id="converterPdfTargetFile"></select>
+              </label>
+              <label>
+                <span>PDF 병합 파일명</span>
+                <input id="converterPdfMergeNameMain" type="text" placeholder="예: 민원자료_통합본" autocomplete="off" />
+              </label>
+              <button class="converter-apply-button is-wide" type="button" id="converterRunPdfMergeButtonMain">
+                <i data-lucide="files"></i>
+                PDF 병합
+              </button>
+              <label>
+                <span>PDF 나누기 범위</span>
+                <input id="converterPdfSplitRanges" type="text" placeholder="빈칸: 1쪽씩 / 예: 1-3,4-6,7" autocomplete="off" />
+              </label>
+              <label>
+                <span>나누기 파일명</span>
+                <input id="converterPdfSplitName" type="text" placeholder="예: 민원자료_분할" autocomplete="off" />
+              </label>
+              <button class="converter-secondary-button is-wide" type="button" id="converterRunPdfSplitButton">
+                <i data-lucide="scissors"></i>
+                PDF 나누기
+              </button>
+              <button class="converter-secondary-button is-wide" type="button" id="converterOpenPdfEditorButton">
+                <i data-lucide="panel-left"></i>
+                PDF 뷰어 / 순서 변경
+              </button>
+            </section>
+            <section class="converter-pdf-merge-card">
+              <label>
+                <span>PDF 병합 파일명</span>
+                <input id="converterPdfMergeName" type="text" placeholder="예: 민원자료_통합본" autocomplete="off" />
+              </label>
+              <button class="converter-apply-button is-wide" type="button" id="converterRunPdfMergeButton">
+                <i data-lucide="files"></i>
+                PDF 병합
+              </button>
+            </section>
+            <section class="converter-pdf-preview-card" id="converterPdfPreviewCard">
+              <div class="converter-preview-head">
+                <strong>PDF 미리보기</strong>
+                <span id="converterPdfPreviewPageLabel">-</span>
+              </div>
+              <div class="converter-pdf-preview-canvas-wrap">
+                <canvas id="converterPdfPreviewCanvas"></canvas>
+                <span id="converterPdfPreviewStatus">PDF를 선택하고 미리보기를 눌러 주세요.</span>
+              </div>
+              <div class="converter-preview-controls">
+                <button class="icon-button" type="button" id="converterPdfPreviewPrevButton" aria-label="이전 페이지">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="converter-secondary-button" type="button" id="converterPreviewPdfButton">
+                  <i data-lucide="eye"></i>
+                  미리보기
+                </button>
+                <button class="icon-button" type="button" id="converterPdfPreviewNextButton" aria-label="다음 페이지">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+              </div>
+            </section>
+          <section class="converter-order-card" id="converterPdfOrderCard">
+            <div class="converter-order-card-title">
+              <strong>PDF 순서 편집</strong>
+              <span>페이지 재배열</span>
+            </div>
+            <div class="converter-tool-grid">
+              <label>
+                <span>대상 PDF</span>
+                <select id="converterPdfOrderFile"></select>
+              </label>
+              <section class="converter-page-summary" id="converterPdfOrderSummary">
+                <strong>PDF를 선택해 주세요</strong>
+                <span>슬롯에 넣은 PDF의 페이지 순서를 새 파일로 다시 저장합니다.</span>
+              </section>
+              <label>
+                <span>페이지 순서</span>
+                <input id="converterPdfOrderInput" type="text" placeholder="예: 1,3,2,4-6 또는 reverse" autocomplete="off" />
+              </label>
+              <div class="converter-quick-row">
+                <button class="converter-secondary-button" type="button" id="converterPdfOrderOriginalButton">원본</button>
+                <button class="converter-secondary-button" type="button" id="converterPdfOrderReverseButton">역순</button>
+                <button class="converter-secondary-button" type="button" id="converterPdfOrderOddEvenButton">홀수 먼저</button>
+              </div>
+              <label>
+                <span>저장 파일명</span>
+                <input id="converterPdfOrderName" type="text" placeholder="예: 검토자료_순서수정" autocomplete="off" />
+              </label>
+            </div>
+            <div class="converter-button-row">
+              <button class="converter-secondary-button" type="button" id="converterInspectPdfButton">
+                <i data-lucide="list-ordered"></i>
+                페이지 확인
+              </button>
+              <button class="converter-apply-button" type="button" id="converterRunPdfOrderButton">
+                <i data-lucide="replace"></i>
+                순서 저장
+              </button>
+            </div>
+          </section>
+          </section>
+          <section class="converter-status-card" id="converterStatus">
+            <strong>대기 중</strong>
+            <span>파일을 넣으면 김병환이 무엇을 받았는지 먼저 정리합니다.</span>
+          </section>
+          <button class="converter-secondary-button is-wide" type="button" id="converterOpenOutputButton">
+            <i data-lucide="folder-open"></i>
+            결과 폴더 열기
+          </button>
+        </aside>
+        <aside class="info-popover" id="infoPopover" tabindex="-1" hidden></aside>
+      </main>
+    </div>
+
+    <script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+    <script src="data.js"></script>
+    <script src="chat.js"></script>
+  </body>
+</html>

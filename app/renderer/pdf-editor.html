@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF 뷰어 / 순서 변경</title>
+    <link rel="stylesheet" href="pdf-editor.css" />
+  </head>
+  <body>
+    <main class="pdf-editor-app">
+      <header class="editor-topbar">
+        <div>
+          <strong id="pdfEditorTitle">PDF 뷰어 / 순서 변경</strong>
+          <span id="pdfEditorMeta">PDF를 불러오는 중입니다.</span>
+        </div>
+        <button class="icon-button" type="button" id="pdfEditorResetButton" title="원본 순서">
+          <i data-lucide="rotate-ccw"></i>
+        </button>
+        <button class="icon-button close-button" type="button" id="pdfEditorCloseButton" title="닫기" aria-label="닫기">
+          <i data-lucide="x"></i>
+        </button>
+      </header>
+
+      <section class="editor-body">
+        <aside class="thumbnail-rail" id="pdfThumbnailRail" aria-label="PDF 페이지 순서"></aside>
+        <section class="preview-pane">
+          <div class="preview-toolbar">
+            <button class="icon-button" type="button" id="pdfPrevButton" aria-label="이전 페이지">
+              <i data-lucide="chevron-left"></i>
+            </button>
+            <span id="pdfPageLabel">-</span>
+            <button class="icon-button" type="button" id="pdfNextButton" aria-label="다음 페이지">
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </div>
+          <div class="preview-stage">
+            <canvas id="pdfPreviewCanvas"></canvas>
+            <span id="pdfEditorStatus">PDF를 준비하고 있습니다.</span>
+          </div>
+        </section>
+      </section>
+
+      <footer class="editor-footer">
+        <label>
+          <span>저장 파일명</span>
+          <input id="pdfOutputName" type="text" placeholder="예: 민원자료_순서수정" autocomplete="off" />
+        </label>
+        <button class="save-button" type="button" id="pdfSaveButton">
+          <i data-lucide="save"></i>
+          순서 저장
+        </button>
+      </footer>
+    </main>
+
+    <script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+    <script src="pdf-editor.js"></script>
+  </body>
+</html>

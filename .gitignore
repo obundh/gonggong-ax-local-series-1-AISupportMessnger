@@ -1,0 +1,77 @@
+# Dependencies and build output
+node_modules/
+dist/
+release/
+release-installer/
+outputs/
+offline/
+vendor/stt-bundle/
+vendor/series4-bundle/
+vendor/.series4-bundle-stage-*/
+
+# Local workspace and generated content
+heyu_workspace/
+tmp/
+*.log
+*.pid
+*.zip
+*.tar
+*.tgz
+__pycache__/
+*.pyc
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+app/config/llm.json
+tools/dgx-spark/spark.env
+*.pem
+*.key
+*.p12
+*.pfx
+
+# User or institution data: public samples must be force-added after review
+data/**
+!data/README.md
+
+# Model weights and local runtimes
+models/**/*.bin
+models/**/*.onnx
+models/**/*.safetensors
+models/**/*.ckpt
+models/**/*.pt
+models/**/*.pth
+tools/whisper/*
+!tools/whisper/README.md
+tools/pdftojson-verify/vendor/
+tools/pdftojson-verify/reports/
+tools/image-runtime/ComfyUI/
+tools/image-runtime/.venv/
+tools/image-runtime/logs/
+
+# Unreviewed binary documents and portrait assets
+docs/*.pdf
+app/renderer/assets/avatars/*.png
+app/renderer/assets/avatars/*.jpg
+app/renderer/assets/avatars/*.jpeg
+app/renderer/assets/avatars/*.webp
+!app/renderer/assets/avatars/lawai.png
+!app/renderer/assets/avatars/hangjeongai.png
+!app/renderer/assets/avatars/langai.png
+!app/renderer/assets/avatars/byeonghwanai.png
+!app/renderer/assets/avatars/languageai.png
+!app/renderer/assets/avatars/geurimai.png
+!app/renderer/assets/avatars/sokgiai.png
+!app/renderer/assets/avatars/gaeboai.png
+!app/renderer/assets/avatars/routineai.png
+!app/renderer/assets/avatars/noriai.png
+!app/renderer/assets/avatars/jawonai.png
+
+# Editor and OS metadata
+.vscode/
+.idea/
+*.user
+*.suo
+.DS_Store
+Thumbs.db

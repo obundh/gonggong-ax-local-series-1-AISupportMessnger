@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; media-src 'self'; style-src 'self'; script-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="AI지원담당 공개 MVP: 설치 전 정적 데모, Windows 원클릭 설치, 고양이 만화 사용 안내." />
+    <title>AI지원담당 · 설치 전 데모와 원클릭 설치</title>
+    <style>
+      :root { color-scheme: light; --yellow:#ffd34d; --soft:#fff4cf; --ink:#15171c; --muted:#646b76; --line:#e7e8eb; --green:#2f8a59; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin:0; color:var(--ink); background:radial-gradient(circle at 82% 5%,#fff4c8 0,transparent 34rem),#f7f6f1; font-family:"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif; line-height:1.6; }
+      a { color:inherit; }
+      .wrap { width:min(1160px,calc(100% - 36px)); margin:auto; }
+      .topbar { position:sticky; top:0; z-index:5; border-bottom:1px solid #e2dfd5; background:rgba(255,253,247,.92); backdrop-filter:blur(14px); }
+      .topbar-inner { min-height:64px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+      .brand { display:flex; align-items:center; gap:10px; font-weight:900; }
+      .brand img { width:34px; height:34px; border-radius:10px; }
+      nav { display:flex; flex-wrap:wrap; gap:14px; color:#5f6670; font-size:13px; font-weight:800; }
+      nav a { text-decoration:none; }
+      nav a:hover, nav a:focus-visible { color:#8b6c00; }
+      .hero { padding:76px 0 64px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); gap:46px; align-items:center; }
+      .eyebrow { margin:0 0 8px; color:#8a6d00; font-size:12px; font-weight:900; letter-spacing:.08em; }
+      h1 { margin:0; max-width:680px; font-size:clamp(38px,6vw,72px); line-height:1.08; letter-spacing:-.06em; }
+      .hero p { max-width:650px; margin:20px 0 0; color:var(--muted); font-size:18px; }
+      .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+      .button { min-height:48px; display:inline-flex; align-items:center; justify-content:center; padding:0 18px; border:1px solid #d8c36c; border-radius:12px; background:var(--yellow); color:#1b1c1e; font-weight:900; text-decoration:none; box-shadow:0 8px 20px rgba(171,132,0,.12); }
+      .button.secondary { border-color:#d8d9dc; background:#fff; box-shadow:none; }
+      .button:hover, .button:focus-visible { transform:translateY(-1px); box-shadow:0 10px 22px rgba(42,44,51,.13); }
+      .hero-card { padding:24px; border:1px solid #eadb9b; border-radius:24px; background:#fffaf0; box-shadow:0 20px 50px rgba(56,58,65,.1); }
+      .hero-card img { width:100%; display:block; border-radius:16px; }
+      .hero-card small { display:block; margin-top:12px; color:#726a4b; font-size:12px; }
+      section { padding:56px 0; }
+      .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:20px; }
+      h2 { margin:0; font-size:clamp(26px,3vw,38px); letter-spacing:-.04em; }
+      .section-head p { max-width:540px; margin:0; color:var(--muted); }
+      .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+      .card { padding:20px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+      .card strong { display:block; margin-bottom:7px; font-size:17px; }
+      .card p { margin:0; color:var(--muted); font-size:14px; }
+      .install { border-block:1px solid #eadb9b; background:#fff9df; }
+      .steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; counter-reset:step; }
+      .step { position:relative; padding:19px 18px 18px 54px; border:1px solid #eedfa5; border-radius:15px; background:#fff; }
+      .step::before { counter-increment:step; content:counter(step); position:absolute; top:18px; left:17px; width:25px; height:25px; display:grid; place-items:center; border-radius:50%; background:var(--yellow); font-weight:900; }
+      .step strong { display:block; margin-bottom:4px; }.step p { margin:0; color:var(--muted); font-size:13px; }
+      .notice { margin-top:18px; padding:14px 16px; border-left:4px solid #d9ad00; border-radius:10px; background:#fff; color:#5d5535; font-size:13px; }
+      .demo-callout { display:flex; align-items:center; justify-content:space-between; gap:22px; padding:24px; border:1px solid #d6e8dd; border-radius:18px; background:#f5fbf7; }
+      .demo-callout p { margin:6px 0 0; color:#5e7166; font-size:14px; }
+      .comic-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+      .comic-grid figure { margin:0; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:#fff; }
+      .comic-grid img { width:100%; display:block; aspect-ratio:1/1; object-fit:cover; }
+      figcaption { padding:10px 12px; color:#5e6670; font-size:13px; }
+      .mvp { padding:22px; border:1px solid #d9dee5; border-radius:16px; background:#fff; }
+      .mvp ul { margin:10px 0 0; padding-left:20px; color:var(--muted); }
+      footer { padding:30px 0 48px; border-top:1px solid #e3e1da; color:#737984; font-size:13px; }
+      :focus-visible { outline:3px solid #2875c7; outline-offset:3px; }
+      @media (max-width:800px) { .hero { grid-template-columns:1fr; padding-top:48px; }.cards,.steps { grid-template-columns:1fr 1fr; }.topbar-inner { align-items:flex-start; padding:12px 0; flex-direction:column; } }
+      @media (max-width:520px) { .wrap { width:min(100% - 24px,1160px); }.hero { padding-bottom:35px; }.hero p { font-size:16px; }.cards,.steps,.comic-grid { grid-template-columns:1fr; }.demo-callout,.section-head { align-items:flex-start; flex-direction:column; } nav { gap:9px; } }
+      @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .button:hover { transform:none; } }
+    </style>
+  </head>
+  <body>
+    <header class="topbar"><div class="wrap topbar-inner"><a class="brand" href="#top"><img src="web-demo/assets/app-icon.png" alt="" />AI지원담당 <span aria-label="MVP">MVP</span></a><nav aria-label="페이지 메뉴"><a href="#demo">웹 데모</a><a href="#install">설치법</a><a href="#comic">6장 만화</a><a href="https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger">소스</a></nav></div></header>
+    <main id="top">
+      <section class="wrap hero" aria-labelledby="title"><div><p class="eyebrow">gonggong-ax-local-series-1-AISupportMessnger</p><h1 id="title">설치하기 전에,<br />AI지원담당을 먼저 써보세요.</h1><p>공공기관 실무자를 위한 로컬 우선 업무 메신저 MVP입니다. 친구목록에서 담당자를 열고, 법률·행정·문서·속기·자동화 기능의 흐름을 한 화면에서 확인할 수 있습니다.</p><div class="actions"><a class="button" href="web-demo/index.html">설치 전 데모 체험</a><a class="button secondary" href="https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI-Support-Messenger-Setup-0.1.0.exe">Windows 원클릭 다운로드</a><a class="button secondary" href="web-demo/assets/intro-video.mp4">소개 동영상</a></div></div><div class="hero-card"><img src="docs/comic/01-무엇을만들었나.png" alt="고양이 캐릭터가 AI지원담당의 친구목록과 기능을 소개하는 만화" /><small>고양이 만화 1장 · 이 프로젝트가 무엇인지 먼저 보여줍니다.</small></div></section>
+      <section class="wrap" id="demo"><div class="demo-callout"><div><p class="eyebrow">첫 번째로 눌러볼 곳</p><h2>친구목록 → 더블클릭 → 채팅 → 기능 패널</h2><p>왼쪽 질문을 고르면 오른쪽 앱 모의창에서 담당자가 표시됩니다. 실제 LLM, 법령 검색, 파일, 마이크, OS 자동화는 실행하지 않는 정적 체험입니다.</p></div><a class="button" href="web-demo/index.html">웹 데모 열기</a></div></section>
+      <section class="install" id="install"><div class="wrap"><div class="section-head"><div><p class="eyebrow">초보자용 원클릭 설치</p><h2>다운로드 후 네 단계면 됩니다.</h2></div><p>설치파일에는 Windows용 Series4 동반 프로그램과 김속기 Turbo STT 기본 자산이 포함됩니다. 대화 답변은 이 PC의 로컬 Ollama 모델을 사용합니다.</p></div><div class="steps"><div class="step"><strong>다운로드</strong><p>Windows 원클릭 다운로드 버튼을 누르고 설치파일이 끝까지 받아질 때까지 기다립니다.</p></div><div class="step"><strong>설치</strong><p>Setup.exe를 실행하고 설치 위치를 고른 뒤 바탕화면 바로가기를 만듭니다.</p></div><div class="step"><strong>모델 확인</strong><p>첫 화면의 모델 버튼에서 이 PC의 Ollama 모델을 확인합니다. Gemma4 e4b 이상을 권장합니다.</p></div><div class="step"><strong>노크하기</strong><p>친구목록에서 김법률·김행정 등 담당자를 더블클릭하고 질문을 시작합니다.</p></div></div><div class="notice"><strong>주의:</strong> 이 저장소와 설치파일은 인터넷 없이 앱을 실행하도록 설계했지만, 대화 모델(Ollama)은 사용자의 PC에 별도로 준비해야 합니다. Turbo STT와 Series4는 설치파일에 포함되며, small STT는 앱의 파일 선택 설치 흐름을 사용합니다.</div></div></section>
+      <section class="wrap"><div class="section-head"><div><p class="eyebrow">MVP 범위</p><h2>지금 되는 것과 아직 아닌 것</h2></div><p>완제품처럼 과장하지 않고, 설치 전 판단에 필요한 경계를 먼저 공개합니다.</p></div><div class="cards"><article class="card"><strong>로컬 담당자 메신저</strong><p>법률·행정·국어·번역·문서·속기·개인정보·반복업무 담당자를 친구목록에서 열어 질문합니다.</p></article><article class="card"><strong>폐쇄망 우선</strong><p>김법률·김행정은 동봉된 로컬 MCP와 로컬 자료만 사용합니다. API 키·대화·업무파일을 공개 저장소에 넣지 않습니다.</p></article><article class="card"><strong>사람의 최종 확인</strong><p>법률·행정 답변은 실무 검토 초안입니다. 생성형 이미지·회의록·자동화도 사용자가 확인하고 실행해야 합니다.</p></article></div><div class="mvp"><strong>MVP라는 뜻</strong><ul><li>대표 업무 흐름과 안전 경계를 먼저 검증하는 1차 공개본입니다.</li><li>모든 기관 규정·모든 문서 형식·모든 화면 환경에서의 성공을 보장하지 않습니다.</li><li>법적 판단, 자동 제출, 자동 결재, 화자분리, 클라우드 동기화는 제공하지 않습니다.</li><li>설치 전에는 웹 데모와 만화로 흐름을 확인하고, 실제 설치 후에는 테스트 문서와 테스트 계정으로 검증하세요.</li></ul></div></section>
+      <section class="wrap" id="comic"><div class="section-head"><div><p class="eyebrow">고양이로 보는 설치 안내</p><h2>6장 만화로 따라가기</h2></div><p>무엇을 만들었는지, 무엇이 로컬인지, 어떻게 설치하고 첫 질문을 하는지 순서대로 설명합니다.</p></div><div class="comic-grid"><figure><img src="docs/comic/01-무엇을만들었나.png" alt="1장 무엇을 만들었는지" loading="lazy" /><figcaption>1장 · AI지원담당이 무엇인지</figcaption></figure><figure><img src="docs/comic/02-담당자별기능.png" alt="2장 담당자별 기능" loading="lazy" /><figcaption>2장 · 담당자별 역할</figcaption></figure><figure><img src="docs/comic/03-완전로컬구조.png" alt="3장 완전 로컬 구조" loading="lazy" /><figcaption>3장 · 폐쇄망 로컬 구조</figcaption></figure><figure><img src="docs/comic/04-설치방법.png" alt="4장 설치 방법" loading="lazy" /><figcaption>4장 · 설치 순서</figcaption></figure><figure><img src="docs/comic/05-첫실행.png" alt="5장 첫 실행" loading="lazy" /><figcaption>5장 · 첫 실행과 모델</figcaption></figure><figure><img src="docs/comic/06-사용흐름.png" alt="6장 사용 흐름" loading="lazy" /><figcaption>6장 · 친구목록에서 질문까지</figcaption></figure></div></section>
+    </main>
+    <footer><div class="wrap"><strong>AI지원담당 공개 MVP</strong><br />소스: <a href="https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger">GitHub</a> · 데모는 정적 모사환경이며 실제 처리·업로드·저장을 하지 않습니다. 프로젝트 자체 라이선스는 별도 지정하지 않았고, 제3자 구성요소의 고지는 <a href="THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>를 따릅니다.</div></footer>
+  </body>
+</html>

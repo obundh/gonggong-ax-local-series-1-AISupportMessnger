@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#ffd34d" />
+    <meta name="description" content="AI지원담당 설치 전 체험용 정적 웹 데모. 실제 친구 목록과 채팅·도구 화면의 사용 흐름을 모의로 체험합니다." />
+    <meta property="og:title" content="AI지원담당 · 설치 전 웹 데모" />
+    <meta property="og:description" content="친구 목록에서 담당자를 열고 채팅과 로컬 도구의 대표 흐름을 정적 모의환경으로 체험해 보세요." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <title>AI지원담당 · 설치 전 웹 데모</title>
+    <link rel="icon" href="assets/app-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#productStage">제품 모의 화면으로 바로 가기</a>
+
+    <header class="site-header">
+      <div class="brand">
+        <img src="assets/app-icon.png" alt="" width="44" height="44" />
+        <div><p class="eyebrow">로컬 업무 메신저</p><strong>AI지원담당</strong></div>
+      </div>
+      <div class="header-actions" aria-label="설치 안내">
+        <a class="header-download" href="../index.html#install">설치법</a>
+        <a class="header-download primary" href="https://github.com/obundh/gonggong-ax-local-series-1-AISupportMessnger/releases/latest/download/AI-Support-Messenger-Setup-0.1.0.exe">Windows 다운로드</a>
+      </div>
+      <div class="header-badges" aria-label="데모 상태">
+        <span class="status-dot"><i aria-hidden="true"></i> 설치 전 체험</span>
+        <span>외부 통신 없음</span><span>실제 작업 없음</span>
+      </div>
+    </header>
+
+    <main class="demo-layout">
+      <aside class="scenario-panel" aria-labelledby="scenarioHeading">
+        <div class="panel-intro">
+          <p class="eyebrow">기능 둘러보기</p>
+          <h1 id="scenarioHeading">질문을 고른 뒤 담당자를 열어보세요.</h1>
+          <p>질문을 누르면 오른쪽 친구 목록에서 담당자가 표시됩니다. 해당 친구를 더블클릭하거나 ‘채팅 열기’를 누르면 실제 앱과 같은 흐름으로 데모가 시작됩니다.</p>
+        </div>
+        <div class="filter-row" id="filterRow" aria-label="질문 분야 필터"></div>
+        <div class="scenario-list" id="scenarioList"></div>
+        <div class="local-note">
+          <span aria-hidden="true">⌁</span>
+          <div><strong>완전한 정적 모의환경입니다.</strong><p>AI·MCP·파일·마이크·자동화를 실행하거나 저장하지 않습니다.</p></div>
+        </div>
+      </aside>
+
+      <section class="product-demo" id="productStage" aria-labelledby="productDemoHeading">
+        <div class="demo-disclosure" role="note">
+          <div><strong id="productDemoHeading">AI지원담당 실제 화면 모사</strong><span>친구 목록 → 채팅 → 담당별 기능 패널 순서로 체험하세요.</span></div>
+          <span class="simulation-chip">웹 데모 · 실제 처리 없음</span>
+        </div>
+
+        <div class="desktop-stage" id="desktopStage">
+          <section class="heyu-window heyu-main-window" id="friendsWindow" aria-label="AI지원담당 친구 목록 모의 창">
+            <aside class="heyu-sidebar" aria-label="AI지원담당 메뉴">
+              <nav class="heyu-nav" aria-label="주 메뉴">
+                <button type="button" class="nav-item is-active" aria-label="친구" aria-current="page" data-demo-nav="friends"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg><small>친구</small></button>
+                <button type="button" class="nav-item" aria-label="채팅" data-demo-nav="chats"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg><small>채팅</small></button>
+                <button type="button" class="nav-item" aria-label="자료" data-demo-nav="files"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"></path></svg><small>자료</small></button>
+                <button type="button" class="nav-item" aria-label="설정" data-demo-nav="settings"><svg class="nav-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.1A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.1A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.1A1.7 1.7 0 0 0 15.4 4a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.18.37.47.7.84.9.27.15.57.23.88.23H21v4h-.1a1.7 1.7 0 0 0-1.5.87z"></path></svg><small>설정</small></button>
+              </nav>
+              <div class="profile-card" aria-label="사용자 온라인">
+                <span class="profile-face" aria-hidden="true"><i></i></span><span class="profile-presence" aria-hidden="true"></span>
+                <div><strong>사용자</strong><small>온라인</small></div>
+              </div>
+            </aside>
+
+            <div class="heyu-workspace">
+              <div class="window-controls" aria-label="창 모양 장식">
+                <button type="button" data-window-action="minimize" aria-label="최소화 모의">—</button>
+                <button type="button" data-window-action="maximize" aria-label="최대화 모의">□</button>
+                <button type="button" data-window-action="close" aria-label="닫기 모의">×</button>
+              </div>
+              <header class="friends-header">
+                <div><p class="eyebrow">AI지원담당</p><h2>친구</h2></div>
+                <span class="model-badge"><i aria-hidden="true"></i> 데모 · 로컬 모사</span>
+              </header>
+              <label class="friend-search"><span aria-hidden="true">⌕</span><input id="friendSearch" type="search" aria-label="이름 검색" placeholder="이름 검색" autocomplete="off" /><span aria-hidden="true">≡</span></label>
+              <div class="friend-tabs" id="friendTabs" role="tablist" aria-label="친구 분류"></div>
+              <div class="friend-list" id="friendList" aria-live="polite"></div>
+              <div class="friend-open-bar" id="friendOpenBar" aria-live="polite"><span id="friendOpenHint">질문을 고르거나 친구를 선택하세요.</span><button type="button" id="openSelectedChat" disabled>채팅 열기</button></div>
+              <p class="security-note"><span aria-hidden="true">▣</span> 기본 설정은 로컬 서비스를 사용합니다. 이 웹 화면은 실제 서비스를 연결하지 않습니다.</p>
+            </div>
+          </section>
+
+          <section class="heyu-window demo-chat-window" id="chatWindow" aria-label="담당자 채팅 모의 창" hidden>
+            <div class="chat-windowbar">
+              <span class="chat-window-title" id="chatWindowTitle">AI지원담당</span>
+              <div class="window-controls chat-controls">
+                <button type="button" id="backToFriends" aria-label="친구 목록으로 돌아가기">←</button>
+                <button type="button" data-window-action="minimize" aria-label="최소화 모의">—</button>
+                <button type="button" data-window-action="maximize" aria-label="최대화 모의">□</button>
+                <button type="button" data-window-action="close-chat" aria-label="채팅 닫기">×</button>
+              </div>
+            </div>
+            <div class="chat-workspace" id="chatWorkspace">
+              <section class="chat-main" aria-label="담당자 대화">
+                <header class="chat-topbar">
+                  <div class="contact-summary">
+                    <img id="contactAvatar" src="assets/avatar-thumbs/lawai.webp" alt="" />
+                    <div><h2 id="messengerHeading" tabindex="-1">김법률</h2><p><span class="presence" id="chatPresence" aria-hidden="true"></span><span id="contactRole">법률지원</span></p></div>
+                  </div>
+                  <div class="chat-meta-actions">
+                    <span class="model-badge compact">데모 · 로컬 모사</span>
+                    <label class="thinking-select">생각 수준<select id="thinkingLevel" aria-label="생각 수준 모의"><option>간단</option><option selected>균형</option><option>깊게</option></select></label>
+                    <button type="button" class="icon-control" id="readyButton" aria-label="로컬 LLM 준비 상태 모의">✦</button>
+                    <button type="button" class="icon-control" id="infoButton" aria-expanded="false" aria-controls="infoPopover" aria-label="담당자 정보">ⓘ</button>
+                  </div>
+                </header>
+                <aside class="info-popover" id="infoPopover" hidden><strong id="infoName">김법률 · 법률지원</strong><p id="infoSummary">웹 데모용 담당자 정보입니다.</p><dl><div><dt>처리 위치</dt><dd>정적 웹 모의환경</dd></div><div><dt>실제 실행</dt><dd>없음</dd></div></dl></aside>
+                <div class="chat-feed" id="chatFeed" tabindex="-1" aria-live="polite" aria-busy="false"></div>
+                <div class="chat-composer" aria-label="데모 전용 입력 영역">
+                  <div class="composer-tools" aria-hidden="true"><span>＋</span><span>☺</span><span>@</span></div>
+                  <p id="composerHint">왼쪽에서 예시 질문을 선택하세요.</p>
+                  <button type="button" id="sendDemoButton" aria-label="선택한 예시 질문 재생">➤</button>
+                </div>
+              </section>
+              <aside class="tool-panel" id="toolPanel" aria-live="polite" hidden></aside>
+            </div>
+          </section>
+          <div class="demo-toast" id="demoToast" role="status" aria-live="polite"></div>
+        </div>
+        <p class="simulation-caption" id="simulationCaption">왼쪽에서 데모 질문을 선택하면 해당 친구가 표시됩니다. 더블클릭 또는 Enter로 채팅을 여세요.</p>
+      </section>
+    </main>
+    <noscript><p class="noscript-message">이 데모를 사용하려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+    <script src="scenarios.js"></script><script src="app.js"></script>
+  </body>
+</html>

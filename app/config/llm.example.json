@@ -1,0 +1,10 @@
+{
+  "provider": "ollama",
+  "baseUrl": "http://127.0.0.1:11434",
+  "model": "gemma4",
+  "temperature": 0.25,
+  "topP": 0.9,
+  "numCtx": 4096,
+  "timeoutMs": 600000,
+  "autoRestartStuckOllama": true
+}

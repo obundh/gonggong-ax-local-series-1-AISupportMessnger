@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "derivation": {
+    "sourceDirectory": "../avatars",
+    "width": 160,
+    "height": 160,
+    "format": "webp",
+    "fit": "cover",
+    "position": "centre",
+    "quality": 78,
+    "effort": 6,
+    "metadataPolicy": "Public thumbnails omit source metadata; reviewed originals remain beside them."
+  },
+  "items": [
+    {
+      "sourceFile": "lawai.png",
+      "sourceBytes": 1968760,
+      "sourceSha256": "6a30ad00847a39392237366dde4700021e44c4b4efa2f116d16b46568a23081c",
+      "thumbnailFile": "lawai.webp",
+      "thumbnailBytes": 5162,
+      "thumbnailSha256": "ff8f3d908929f8f953e1b794fd772916f6bf801cffd0472f2afe9260057a1f23",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "hangjeongai.png",
+      "sourceBytes": 4134047,
+      "sourceSha256": "dc7fbb58ffd1dfd3706f02821ae143e6d4b1411354ebfdf1a0e1c17d5f33ad66",
+      "thumbnailFile": "hangjeongai.webp",
+      "thumbnailBytes": 4724,
+      "thumbnailSha256": "99503b377a7d90de40e1f4b4c9478e9793cc34cbddba76f67933eed4b8fb9db9",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "langai.png",
+      "sourceBytes": 2290791,
+      "sourceSha256": "2266842f2dcaa3e1fe005d0cb08e61da1f34c3c440145808b503a6f7a9933af4",
+      "thumbnailFile": "langai.webp",
+      "thumbnailBytes": 5184,
+      "thumbnailSha256": "210fe96a7eb924aed246b819aa4d1ffd5885775e21271074b40254653fd408c5",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "byeonghwanai.png",
+      "sourceBytes": 2244225,
+      "sourceSha256": "15aa67589624f491628c9a6c84f2727d481c97d9e429f4986922985784cd61d1",
+      "thumbnailFile": "byeonghwanai.webp",
+      "thumbnailBytes": 5020,
+      "thumbnailSha256": "711167fa51d6ecff7c42441e680bfeaf190fd139dd8c95fcaa909bf247ad4aad",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "languageai.png",
+      "sourceBytes": 2708946,
+      "sourceSha256": "2616dbcaf5e13be2211a7624b0577753b88cdac61f9be21b7af853fb341874e6",
+      "thumbnailFile": "languageai.webp",
+      "thumbnailBytes": 7262,
+      "thumbnailSha256": "70d3a38edc8b5548f8c7d9d3253d5be208d6feacaba1106f07b307ea003f7b5c",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "geurimai.png",
+      "sourceBytes": 68811,
+      "sourceSha256": "b639069b2aa181b944d01b7a7eb996dda10e4cb65a52543680cfa65cb0db0bd6",
+      "thumbnailFile": "geurimai.webp",
+      "thumbnailBytes": 2230,
+      "thumbnailSha256": "05cc2fd27f12b07b2c7a1fe345ec4875f61b4b5082e3f8e34b047af47b85d433",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "sokgiai.png",
+      "sourceBytes": 2040928,
+      "sourceSha256": "02b10930827a9e043e079588c92ec0d09d1fc9e2c3de857140df894e4b097545",
+      "thumbnailFile": "sokgiai.webp",
+      "thumbnailBytes": 4318,
+      "thumbnailSha256": "9629058657fd862943d24b876ef39aaa67383729d7d5b5da3a94b43e2bd38f99",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "jawonai.png",
+      "sourceBytes": 1846013,
+      "sourceSha256": "5e409f1dd8240254119dd12734f8d3413ee374ada56f0efe2822da998e91f50b",
+      "thumbnailFile": "jawonai.webp",
+      "thumbnailBytes": 5302,
+      "thumbnailSha256": "036b7a4f8dbe515dea2b50a1b5f715c336f3a8691340208b168b0bb212d81c4e",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "gaeboai.png",
+      "sourceBytes": 557999,
+      "sourceSha256": "de46022a5b2d632a8d4cedf8de28c915bc1510a5234ac2d7f4eaeb3fe9d97356",
+      "thumbnailFile": "gaeboai.webp",
+      "thumbnailBytes": 3914,
+      "thumbnailSha256": "a3f93ad92be4690d021ed971e47d9cff45de42d005b71b38ba9394ddd6ff1ca9",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "routineai.png",
+      "sourceBytes": 2332649,
+      "sourceSha256": "ba490eef44a32a8cfb269fc8d94d9a388b6f172b8bf63391141d0a61b02e84a8",
+      "thumbnailFile": "routineai.webp",
+      "thumbnailBytes": 6070,
+      "thumbnailSha256": "de05a5250e6fd066566268393c884ff9de0b15ad0a99dcd23a4c6174a7ff5141",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    },
+    {
+      "sourceFile": "noriai.png",
+      "sourceBytes": 1862581,
+      "sourceSha256": "0ff9fc2b1b36c95d22fd287188ba82beb31a7e8647081657bc7cd5381773707c",
+      "thumbnailFile": "noriai.webp",
+      "thumbnailBytes": 3296,
+      "thumbnailSha256": "87635bc5652d9a6370a3e3d343a0fdb51353bd7e78a8b5dad5346dc32cc3d107",
+      "width": 160,
+      "height": 160,
+      "format": "webp"
+    }
+  ]
+}

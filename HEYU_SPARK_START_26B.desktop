@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Heyu Spark 26B
+Terminal=true
+Exec=sh -c 'cd "$(dirname "$1")" && bash HEYU_SPARK_START_26B.sh' launcher %k

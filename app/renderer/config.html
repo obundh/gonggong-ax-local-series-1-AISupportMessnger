@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>담당 설정</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="config-body">
+    <div class="config-frame">
+      <header class="config-windowbar">
+        <div class="config-window-title" id="configWindowTitle"></div>
+        <div class="window-controls" aria-label="창 제어">
+          <button type="button" data-window-action="minimize" aria-label="최소화"><span></span></button>
+          <button type="button" data-window-action="maximize" aria-label="최대화"><span></span></button>
+          <button type="button" data-window-action="close" aria-label="닫기"><span></span></button>
+        </div>
+      </header>
+      <main class="config-main">
+        <section class="config-hero" id="configHero"></section>
+        <section class="config-editor" id="configEditor"></section>
+        <section class="config-current" id="configCurrent"></section>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+
+    <script src="../../node_modules/lucide/dist/umd/lucide.min.js"></script>
+    <script src="data.js"></script>
+    <script src="config.js"></script>
+  </body>
+</html>
